@@ -34,9 +34,131 @@ class MyApp extends StatelessWidget {
                 Text("data 5 "),
               ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 30,
+                  width: 30,
+                  color: Colors.deepOrange,
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Container(
+                  height: 30,
+                  width: 30,
+                  color: Colors.deepOrange,
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Container(
+                  height: 30,
+                  width: 30,
+                  color: Colors.deepOrange,
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Container(
+                  height: 30,
+                  width: 30,
+                  color: Colors.deepOrange,
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Container(
+                  height: 30,
+                  width: 30,
+                  color: Colors.deepOrange,
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                    color: Colors.deepOrange,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                    color: Colors.deepOrange,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                    color: Colors.deepOrange,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                    color: Colors.deepOrange,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                    color: Colors.deepOrange,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ],
+            ),
+            CustomPaint(
+              size: Size(200, 200),
+              painter: Segitiga(),
+            )
           ],
         ),
       ),
     );
   }
+}
+
+class Segitiga extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()..color = Colors.deepOrange;
+    final path = Path()
+      ..moveTo(200 / 2, 0)
+      ..lineTo(200, 200)
+      ..lineTo(0, 200)
+      ..close();
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
