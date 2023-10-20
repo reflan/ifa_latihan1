@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,6 +29,8 @@ class FormInput extends StatefulWidget {
 }
 
 class _FormInputState extends State<FormInput> {
+  TextEditingController var_tanggal = TextEditingController();
+
   String? _jk;
   void PilihJk(String value) {
     setState(() {
@@ -45,6 +48,43 @@ class _FormInputState extends State<FormInput> {
   ];
 
   String _agama = "Islam";
+
+  void dispose() {
+    var_tanggal.dispose();
+    super.dispose();
+  }
+
+  String formatDate(DateTime date) {
+    return DateFormat('dd-MM-yyyy').format(date);
+  }
+
+  DateTime selectedDate = DateTime.now();
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2015, 8),
+      lastDate: DateTime(2101),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.dark().copyWith(
+            primaryColor: Colors.teal, // change primary color
+            hintColor: Colors.teal, // change accent color
+            colorScheme: ColorScheme.dark(primary: Colors.teal),
+          ), // change theme to dark
+          child: child!,
+        );
+      },
+    );
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+        // var_tanggal.text = DateFormat.yMd().format(selectedDate);
+        var_tanggal.text = formatDate(selectedDate).toString();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,6 +156,38 @@ class _FormInputState extends State<FormInput> {
               },
               activeColor: Colors.teal,
               subtitle: Text("Pilih ini jika perempuan"),
+            ),
+            DropdownButton<String>(
+              value: _agama,
+              items: agama.map((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+              onChanged: (String? newValue) {
+                setState(() {
+                  _agama = newValue!;
+                });
+              },
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            TextField(
+              controller: var_tanggal,
+              readOnly: true,
+              decoration: InputDecoration(
+                hintText: "Tanggal Lahir",
+                labelText: "Tanggal Lahir",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                suffixIcon: IconButton(
+                  onPressed: () => _selectDate(context),
+                  icon: Icon(Icons.calendar_today),
+                ),
+              ),
             ),
           ],
         ),
